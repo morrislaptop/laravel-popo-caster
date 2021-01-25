@@ -1,16 +1,16 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "morrislaptop/laravel-castable-object",
+    "description": "Automatically cast JSON columns to rich PHP objects in Laravel using Symfony's Serializer",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "morrislaptop",
+        "laravel-castable-object"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/morrislaptop/laravel-castable-object",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Craig Morris",
+            "email": "craig.michael.morris@gmail.com",
             "role": "Developer"
         }
     ],
@@ -24,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Morrislaptop\\Caster\\": "src",
+            "Morrislaptop\\Caster\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Morrislaptop\\Caster\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Morrislaptop\\Caster\\CasterServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "Caster": "Morrislaptop\\Caster\\CasterFacade"
             }
         }
     },
