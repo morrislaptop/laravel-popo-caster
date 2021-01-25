@@ -4,7 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/morrislaptop/laravel-castable-object/run-tests?label=tests)](https://github.com/morrislaptop/laravel-castable-object/actions?query=workflow%3ATests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/morrislaptop/laravel-castable-object.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-castable-object)
 
-Laravel is awesome. Spatie's [data transfer object](https://github.com/spatie/data-transfer-object) package for PHP is awesome. But they don't cast objects like strings to ints or dates to DateTimes. Plain Old PHP Objects (POPOs) are a bit better in that regard. 
+Laravel is awesome. Spatie's [data transfer object](https://github.com/spatie/data-transfer-object) package for PHP is awesome. But they don't cast objects like dates to DateTimes and collections are a bit of pain. Plain Old PHP Objects (POPOs) are a bit better in that regard. 
 
 Have you ever wanted to cast your JSON columns to a value object?
 
@@ -44,7 +44,7 @@ class Address
 
 ### 2. Configure your Eloquent attribute to cast to it:
 
-Note that this should be a `jsonb` or `json` column in your database schema.
+Note that this should be a `jsonb` or `json` column in your database schema. Objects and arrays are both supported.
 
 ```php
 namespace App\Models;
@@ -76,6 +76,14 @@ $user = User::create([
         'state' => 'California',
         'moved_at' => now(),
     ],
+    'addresses' => [
+        [
+            'street' => '42 Wallaby Way',
+            'suburb' => 'Sydney',
+            'state' => 'NSW',
+            'moved_at' => '2020-01-14T00:00:00Z',
+        ],
+    ]
 ])
 
 $residents = User::where('address->suburb', 'Hill Valley')->get();
@@ -96,6 +104,10 @@ $user->address->moved_at->diffForHumans();
 
 echo (string) $user->address;
 ```
+
+## Plug
+
+Want an easy way to mock or have factories for your POPOs? Check out (morrislaptop/popo-factory)[https://github.com/morrislaptop/popo-factory]
 
 ## Testing
 

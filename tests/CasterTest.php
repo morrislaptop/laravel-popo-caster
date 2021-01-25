@@ -24,6 +24,14 @@ class CasterTest extends TestCase
                 'state' => 'California',
                 'moved' => '2010-01-12T11:00:00+09:00'
             ],
+            'addresses' => [
+                [
+                    'street' => '1641 Riverside Drive',
+                    'suburb' => 'Hill Valley',
+                    'state' => 'California',
+                    'moved' => '2010-01-12T11:00:00+09:00'
+                ],
+            ]
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -64,6 +72,14 @@ class CasterTest extends TestCase
                 'state' => 'California',
                 'moved' => '2010-01-12T11:00:00+09:00'
             ],
+            'addresses' => [
+                [
+                    'street' => '1641 Riverside Drive',
+                    'suburb' => 'Hill Valley',
+                    'state' => 'California',
+                    'moved' => '2010-01-12T11:00:00+09:00'
+                ]
+            ]
         ]);
 
         $user = $user->fresh();
@@ -73,6 +89,7 @@ class CasterTest extends TestCase
         $this->assertEquals('Hill Valley', $user->address->suburb);
         $this->assertEquals('California', $user->address->state);
         $this->assertEquals('2010-01-12T11:00:00+09:00', $user->address->moved->toIso8601String());
+        $this->assertEquals('1641 Riverside Drive', $user->addresses[0]->street);
     }
 
     /** @test */

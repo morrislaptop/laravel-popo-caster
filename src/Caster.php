@@ -2,9 +2,10 @@
 
 namespace Morrislaptop\Caster;
 
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Serializer;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class Caster implements CastsAttributes
 {
@@ -46,7 +47,10 @@ class Caster implements CastsAttributes
             $value = $this->serializer->denormalize($value, $this->class);
         }
 
-        if (! $value instanceof $this->class) {
+        $instance = is_array($value) ? reset($value) : $value;
+        $class = Str::replaceLast('[]', '', $this->class);
+
+        if (! $instance instanceof $class) {
             throw new InvalidArgumentException("Value must be of type [$this->class], array, or null");
         }
 
