@@ -2,12 +2,14 @@
 
 namespace Morrislaptop\Caster\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Morrislaptop\Caster\Caster;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
 class CasterTest extends TestCase
@@ -20,6 +22,7 @@ class CasterTest extends TestCase
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
                 'state' => 'California',
+                'moved' => '2010-01-12T11:00:00+09:00'
             ],
         ]);
 
@@ -27,6 +30,7 @@ class CasterTest extends TestCase
             'address->street' => '1640 Riverside Drive',
             'address->suburb' => 'Hill Valley',
             'address->state' => 'California',
+            'address->moved' => '2010-01-12T11:00:00+09:00',
         ]);
     }
 
@@ -38,6 +42,7 @@ class CasterTest extends TestCase
                 street: '1640 Riverside Drive',
                 suburb: 'Hill Valley',
                 state: 'California',
+                moved: Carbon::parse('2010-01-12T11:00:00+09:00'),
             ),
         ]);
 
@@ -45,6 +50,7 @@ class CasterTest extends TestCase
             'address->street' => '1640 Riverside Drive',
             'address->suburb' => 'Hill Valley',
             'address->state' => 'California',
+            'address->moved' => '2010-01-12T11:00:00+09:00',
         ]);
     }
 
@@ -56,6 +62,7 @@ class CasterTest extends TestCase
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
                 'state' => 'California',
+                'moved' => '2010-01-12T11:00:00+09:00'
             ],
         ]);
 
@@ -65,6 +72,7 @@ class CasterTest extends TestCase
         $this->assertEquals('1640 Riverside Drive', $user->address->street);
         $this->assertEquals('Hill Valley', $user->address->suburb);
         $this->assertEquals('California', $user->address->state);
+        $this->assertEquals('2010-01-12T11:00:00+09:00', $user->address->moved->toIso8601String());
     }
 
     /** @test */
@@ -106,16 +114,21 @@ class Address
         public string $street,
         public string $suburb,
         public string $state,
+        public Carbon $moved,
     ) {
     }
 }
 
+/**
+ * @var Address $address
+ */
 class User extends Model
 {
     use HasFactory;
 
     protected $casts = [
         'address' => Caster::class . ':' . Address::class,
+        'addresses' => Caster::class . ':' . Address::class . '[]',
     ];
 
     protected static function newFactory()
@@ -150,6 +163,7 @@ class UserFactory extends Factory
                 'street' => $this->faker->streetAddress,
                 'suburb' => $this->faker->city,
                 'state' => $this->faker->state,
+                'moved' => now(),
             ],
         ];
     }

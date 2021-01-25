@@ -36,6 +36,7 @@ class Address
         public string $street,
         public string $suburb,
         public string $state,
+        public Carbon $moved_at,
     ) {
     }
 }
@@ -59,6 +60,7 @@ class User extends Model
 {
     protected $casts = [
         'address' => Caster::class . ':' . Address::class,
+        'prev_addresses' => Caster::class . ':' . Address::class . '[]',
     ];
 }
 ```
@@ -72,6 +74,7 @@ $user = User::create([
         'street' => '1640 Riverside Drive',
         'suburb' => 'Hill Valley',
         'state' => 'California',
+        'moved_at' => now(),
     ],
 ])
 
@@ -88,6 +91,8 @@ $user->address->getCoordinates();
 $user->address->getPostageCost($sender);
 
 $user->address->calculateDistance($otherUser->address);
+
+$user->address->moved_at->diffForHumans();
 
 echo (string) $user->address;
 ```
