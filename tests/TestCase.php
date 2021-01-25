@@ -2,7 +2,6 @@
 
 namespace Morrislaptop\Caster\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Morrislaptop\Caster\CasterServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 

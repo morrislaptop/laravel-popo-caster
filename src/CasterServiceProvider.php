@@ -3,9 +3,8 @@
 namespace Morrislaptop\Caster;
 
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Serializer\Serializer;
-use Morrislaptop\Caster\Commands\CasterCommand;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class CasterServiceProvider extends ServiceProvider
 {
