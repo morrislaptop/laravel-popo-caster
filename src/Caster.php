@@ -2,10 +2,10 @@
 
 namespace Morrislaptop\Caster;
 
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Serializer;
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class Caster implements CastsAttributes
 {
