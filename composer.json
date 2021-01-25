@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.0",
         "illuminate/contracts": "^8.0",
         "spatie/laravel-event-sourcing": "^4.7",
         "spatie/laravel-ray": "^1.9",
@@ -23,6 +23,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18",
+        "mockery/mockery": "^1.4",
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.3",
         "vimeo/psalm": "^4.4"
