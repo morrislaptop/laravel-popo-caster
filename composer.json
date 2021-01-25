@@ -16,7 +16,10 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.0"
+        "illuminate/contracts": "^8.0",
+        "spatie/laravel-event-sourcing": "^4.7",
+        "spatie/laravel-ray": "^1.9",
+        "symfony/serializer": "^5.2"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
