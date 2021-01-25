@@ -107,7 +107,7 @@ echo (string) $user->address;
 
 ## Plug
 
-Want an easy way to mock or have factories for your POPOs? Check out (morrislaptop/popo-factory)[https://github.com/morrislaptop/popo-factory]
+Want an easy way to mock or have factories for your POPOs? Check out [morrislaptop/popo-factory](https://github.com/morrislaptop/popo-factory)
 
 ## Testing
 
