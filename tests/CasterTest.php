@@ -2,14 +2,12 @@
 
 namespace Morrislaptop\Caster\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Morrislaptop\Caster\Caster;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Morrislaptop\Caster\CastableDataTransferObject;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\DataTransferObject\DataTransferObjectError;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
 class CasterTest extends TestCase
@@ -108,9 +106,7 @@ class Address
         public string $street,
         public string $suburb,
         public string $state,
-    )
-    {
-
+    ) {
     }
 }
 
