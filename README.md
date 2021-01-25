@@ -4,8 +4,16 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/morrislaptop/laravel-castable-object/run-tests?label=tests)](https://github.com/morrislaptop/laravel-castable-object/actions?query=workflow%3ATests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/morrislaptop/laravel-castable-object.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-castable-object)
 
+Laravel is awesome. Spatie's [data transfer object](https://github.com/spatie/data-transfer-object) package for PHP is awesome. But they don't cast objects like strings to ints or dates to DateTimes. Plain Old PHP Objects (POPOs) are a bit better in that regard. 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Have you ever wanted to cast your JSON columns to a value object?
+
+This package gives you a generic caster class, called `Caster`.
+
+Under the hood it implements Laravel's [`Castable` interface](https://laravel.com/docs/8.x/eloquent-mutators#castables) with a Laravel [custom cast](https://laravel.com/docs/8.x/eloquent-mutators#custom-casts) that handles serializing between the `object` (or a compatible array) and your JSON database column. It uses [Symfony's Serializer](https://symfony.com/doc/current/components/serializer.html) to do this.
+
+This package is inspired by [Laravel Castable Data Transfer Object](https://github.com/jessarcher/laravel-castable-data-transfer-object)!
+
 
 ## Installation
 
@@ -15,30 +23,73 @@ You can install the package via composer:
 composer require morrislaptop/laravel-castable-object
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="Morrislaptop\Caster\CasterServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-```bash
-php artisan vendor:publish --provider="Morrislaptop\Caster\CasterServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
 ## Usage
 
+### 1. Create your `POPO`
+
+``` php
+namespace App\Values;
+
+class Address
+{
+    public function __construct(
+        public string $street,
+        public string $suburb,
+        public string $state,
+    ) {
+    }
+}
+```
+
+### 2. Configure your Eloquent attribute to cast to it:
+
+Note that this should be a `jsonb` or `json` column in your database schema.
+
 ```php
-$laravel-castable-object = new Morrislaptop\Caster();
-echo $laravel-castable-object->echoPhrase('Hello, Morrislaptop!');
+namespace App\Models;
+
+use App\Values\Address;
+use Illuminate\Database\Eloquent\Model;
+use Morrislaptop\Caster\Caster;
+
+/**
+ * @property Address $address
+ */
+class User extends Model
+{
+    protected $casts = [
+        'address' => Caster::class . ':' . Address::class,
+    ];
+}
+```
+
+And that's it! You can now pass either an instance of your `Address` class, or even just an array with a compatible structure. It will automatically be cast between your class and JSON for storage and the data will be validated on the way in and out.
+
+```php
+$user = User::create([
+    // ...
+    'address' => [
+        'street' => '1640 Riverside Drive',
+        'suburb' => 'Hill Valley',
+        'state' => 'California',
+    ],
+])
+
+$residents = User::where('address->suburb', 'Hill Valley')->get();
+```
+
+But the best part is that you can decorate your class with domain-specific methods to turn it into a powerful value object.
+
+```php
+$user->address->toMapUrl();
+
+$user->address->getCoordinates();
+
+$user->address->getPostageCost($sender);
+
+$user->address->calculateDistance($otherUser->address);
+
+echo (string) $user->address;
 ```
 
 ## Testing
