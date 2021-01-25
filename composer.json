@@ -17,7 +17,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/contracts": "^8.0",
-        "spatie/laravel-event-sourcing": "^4.7",
+        "spatie/laravel-event-sourcing": "^4.7.1",
         "spatie/laravel-ray": "^1.9",
         "symfony/serializer": "^5.2"
     },
