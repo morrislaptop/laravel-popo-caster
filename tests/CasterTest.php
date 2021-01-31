@@ -1,8 +1,13 @@
 <?php
 
-namespace Morrislaptop\Caster\Tests;
+namespace Morrislaptop\LaravelPopoCaster\Tests;
 
 use Carbon\Carbon;
+use DateTime;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Morrislaptop\LaravelPopoCaster\Caster;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

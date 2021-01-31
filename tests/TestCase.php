@@ -1,8 +1,8 @@
 <?php
 
-namespace Morrislaptop\Caster\Tests;
+namespace Morrislaptop\LaravelPopoCaster\Tests;
 
-use Morrislaptop\Caster\CasterServiceProvider;
+use Morrislaptop\LaravelPopoCaster\CasterServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

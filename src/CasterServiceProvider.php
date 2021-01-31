@@ -1,6 +1,6 @@
 <?php
 
-namespace Morrislaptop\Caster;
+namespace Morrislaptop\LaravelPopoCaster;
 
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
