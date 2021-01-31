@@ -3,13 +3,12 @@
 namespace Morrislaptop\Caster\Tests;
 
 use Carbon\Carbon;
-use DateTime;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Morrislaptop\Caster\Caster;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
 class CasterTest extends TestCase
@@ -22,16 +21,16 @@ class CasterTest extends TestCase
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
                 'state' => 'California',
-                'moved' => '2010-01-12T11:00:00+09:00'
+                'moved' => '2010-01-12T11:00:00+09:00',
             ],
             'addresses' => [
                 [
                     'street' => '1641 Riverside Drive',
                     'suburb' => 'Hill Valley',
                     'state' => 'California',
-                    'moved' => '2010-01-12T11:00:00+09:00'
+                    'moved' => '2010-01-12T11:00:00+09:00',
                 ],
-            ]
+            ],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -70,16 +69,16 @@ class CasterTest extends TestCase
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
                 'state' => 'California',
-                'moved' => '2010-01-12T11:00:00+09:00'
+                'moved' => '2010-01-12T11:00:00+09:00',
             ],
             'addresses' => [
                 [
                     'street' => '1641 Riverside Drive',
                     'suburb' => 'Hill Valley',
                     'state' => 'California',
-                    'moved' => '2010-01-12T11:00:00+09:00'
-                ]
-            ]
+                    'moved' => '2010-01-12T11:00:00+09:00',
+                ],
+            ],
         ]);
 
         $user = $user->fresh();
