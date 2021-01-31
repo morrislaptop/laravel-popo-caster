@@ -1,11 +1,11 @@
 {
-    "name": "morrislaptop/laravel-castable-object",
+    "name": "morrislaptop/laravel-popo-caster",
     "description": "Automatically cast JSON columns to rich PHP objects in Laravel using Symfony's Serializer",
     "keywords": [
         "morrislaptop",
-        "laravel-castable-object"
+        "laravel-popo-caster"
     ],
-    "homepage": "https://github.com/morrislaptop/laravel-castable-object",
+    "homepage": "https://github.com/morrislaptop/laravel-popo-caster",
     "license": "MIT",
     "authors": [
         {
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Morrislaptop\\Caster\\": "src",
-            "Morrislaptop\\Caster\\Database\\Factories\\": "database/factories"
+            "Morrislaptop\\LaravelPopoCaster\\": "src",
+            "Morrislaptop\\LaravelPopoCaster\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Morrislaptop\\Caster\\Tests\\": "tests"
+            "Morrislaptop\\LaravelPopoCaster\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -51,10 +51,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Morrislaptop\\Caster\\CasterServiceProvider"
+                "Morrislaptop\\LaravelPopoCaster\\CasterServiceProvider"
             ],
             "aliases": {
-                "Caster": "Morrislaptop\\Caster\\CasterFacade"
+                "Caster": "Morrislaptop\\LaravelPopoCaster\\CasterFacade"
             }
         }
     },

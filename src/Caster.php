@@ -1,6 +1,6 @@
 <?php
 
-namespace Morrislaptop\Caster;
+namespace Morrislaptop\LaravelPopoCaster;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Support\Str;

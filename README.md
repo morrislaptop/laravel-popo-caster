@@ -1,8 +1,8 @@
 # Automatically cast JSON columns to rich PHP objects in Laravel using Symfony's Serializer
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/morrislaptop/laravel-castable-object.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-castable-object)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/morrislaptop/laravel-castable-object/Tests?label=tests)](https://github.com/morrislaptop/laravel-castable-object/actions?query=workflow%3ATests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/morrislaptop/laravel-castable-object.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-castable-object)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/morrislaptop/laravel-popo-caster.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-popo-caster)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/morrislaptop/laravel-popo-caster/Tests?label=tests)](https://github.com/morrislaptop/laravel-popo-caster/actions?query=workflow%3ATests+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/morrislaptop/laravel-popo-caster.svg?style=flat-square)](https://packagist.org/packages/morrislaptop/laravel-popo-caster)
 
 Laravel is awesome. Spatie's [data transfer object](https://github.com/spatie/data-transfer-object) package for PHP is awesome. But they don't cast objects like dates to DateTimes and collections are a bit of pain. Plain Old PHP Objects (POPOs) are a bit better in that regard. 
 
@@ -20,7 +20,7 @@ This package is inspired by [Laravel Castable Data Transfer Object](https://gith
 You can install the package via composer:
 
 ```bash
-composer require morrislaptop/laravel-castable-object
+composer require morrislaptop/laravel-popo-caster
 ```
 
 ## Usage
@@ -51,7 +51,7 @@ namespace App\Models;
 
 use App\Values\Address;
 use Illuminate\Database\Eloquent\Model;
-use Morrislaptop\Caster\Caster;
+use Morrislaptop\LaravelPopoCaster\Caster;
 
 /**
  * @property Address $address
