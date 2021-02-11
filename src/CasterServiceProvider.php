@@ -3,8 +3,11 @@
 namespace Morrislaptop\LaravelPopoCaster;
 
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Morrislaptop\LaravelPopoCaster\Normalizer\CarbonNormalizer;
+use Morrislaptop\LaravelPopoCaster\Normalizer\ObjectNormalizer;
+use Morrislaptop\LaravelPopoCaster\Normalizer\ModelIdentifierNormalizer;
 
 class CasterServiceProvider extends ServiceProvider
 {
@@ -12,11 +15,11 @@ class CasterServiceProvider extends ServiceProvider
     {
         $this->app->bind(Serializer::class, function () {
             return new Serializer([
-                new \Spatie\EventSourcing\Support\CarbonNormalizer,
-                new \Spatie\EventSourcing\Support\ModelIdentifierNormalizer,
+                new CarbonNormalizer,
+                new ModelIdentifierNormalizer,
                 new \Symfony\Component\Serializer\Normalizer\DateTimeNormalizer,
                 new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer,
-                new \Spatie\EventSourcing\Support\ObjectNormalizer,
+                new ObjectNormalizer,
             ], [new JsonEncoder()]);
         });
     }
