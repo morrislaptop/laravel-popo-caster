@@ -37,7 +37,7 @@ class ModelIdentifierNormalizer implements NormalizerInterface, DenormalizerInte
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, string $format = null, array $context = [])
+    public function denormalize($data, $type, string $format = null, array $context = [])
     {
         $identifier = $data instanceof ModelIdentifier
             ? $data
