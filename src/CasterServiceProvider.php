@@ -3,11 +3,11 @@
 namespace Morrislaptop\LaravelPopoCaster;
 
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Morrislaptop\LaravelPopoCaster\Normalizer\CarbonNormalizer;
-use Morrislaptop\LaravelPopoCaster\Normalizer\ObjectNormalizer;
 use Morrislaptop\LaravelPopoCaster\Normalizer\ModelIdentifierNormalizer;
+use Morrislaptop\LaravelPopoCaster\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class CasterServiceProvider extends ServiceProvider
 {
