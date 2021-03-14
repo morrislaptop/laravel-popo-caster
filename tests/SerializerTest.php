@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Morrislaptop\LaravelPopoCaster\Caster;
+use Morrislaptop\LaravelPopoCaster\Serializer;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
-class CasterTest extends TestCase
+class SerializerTest extends TestCase
 {
     /** @test */
     public function it_casts_arrays_to_json()
     {
-        User::factory()->create([
+        UserWithAddress::factory()->create([
             'address' => [
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
@@ -44,12 +44,12 @@ class CasterTest extends TestCase
     /** @test */
     public function it_casts_data_transfer_objects_to_json()
     {
-        User::factory()->create([
+        UserWithAddress::factory()->create([
             'address' => new Address(
-                street: '1640 Riverside Drive',
-                suburb: 'Hill Valley',
-                state: 'California',
-                moved: Carbon::parse('2010-01-12T11:00:00+09:00'),
+                '1640 Riverside Drive',
+                'Hill Valley',
+                'California',
+                Carbon::parse('2010-01-12T11:00:00+09:00'),
             ),
         ]);
 
@@ -64,7 +64,7 @@ class CasterTest extends TestCase
     /** @test */
     public function it_json_to_a_data_transfer_object()
     {
-        $user = User::factory()->create([
+        $user = UserWithAddress::factory()->create([
             'address' => [
                 'street' => '1640 Riverside Drive',
                 'suburb' => 'Hill Valley',
@@ -96,7 +96,7 @@ class CasterTest extends TestCase
     {
         $this->expectException(MissingConstructorArgumentsException::class);
 
-        User::factory()->create([
+        UserWithAddress::factory()->create([
             'address' => [
                 'bad' => 'thing',
             ],
@@ -108,7 +108,7 @@ class CasterTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        User::factory()->create([
+        UserWithAddress::factory()->create([
             'address' => 'string',
         ]);
     }
@@ -116,7 +116,7 @@ class CasterTest extends TestCase
     /** @test */
     public function it_handles_nullable_columns()
     {
-        $user = User::factory()->create(['address' => null]);
+        $user = UserWithAddress::factory()->create(['address' => null]);
 
         $this->assertDatabaseHas('users', ['address' => null]);
 
@@ -126,41 +126,48 @@ class CasterTest extends TestCase
 
 class Address
 {
-    public function __construct(
-        public string $street,
-        public string $suburb,
-        public string $state,
-        public Carbon $moved,
-    ) {
+    public string $street;
+    public string $suburb;
+    public string $state;
+    public Carbon $moved;
+
+    public function __construct(string $street, string $suburb, string $state, Carbon $moved)
+    {
+        $this->street = $street;
+        $this->suburb = $suburb;
+        $this->state = $state;
+        $this->moved = $moved;
     }
 }
 
 /**
  * @var Address $address
  */
-class User extends Model
+class UserWithAddress extends Model
 {
     use HasFactory;
 
+    protected $table = 'users';
+
     protected $casts = [
-        'address' => Caster::class . ':' . Address::class,
-        'addresses' => Caster::class . ':' . Address::class . '[]',
+        'address' => Serializer::class . ':' . Address::class,
+        'addresses' => Serializer::class . ':' . Address::class . '[]',
     ];
 
     protected static function newFactory()
     {
-        return UserFactory::new();
+        return UserWithAddressFactory::new();
     }
 }
 
-class UserFactory extends Factory
+class UserWithAddressFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = UserWithAddress::class;
 
     /**
      * Define the model's default state.

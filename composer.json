@@ -53,10 +53,7 @@
         "laravel": {
             "providers": [
                 "Morrislaptop\\LaravelPopoCaster\\CasterServiceProvider"
-            ],
-            "aliases": {
-                "Caster": "Morrislaptop\\LaravelPopoCaster\\CasterFacade"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

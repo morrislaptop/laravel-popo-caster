@@ -5,13 +5,13 @@ namespace Morrislaptop\LaravelPopoCaster;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 
-class Caster implements CastsAttributes
+class Serializer implements CastsAttributes
 {
     protected string $class;
 
-    protected Serializer $serializer;
+    protected SymfonySerializer $serializer;
 
     /**
      * @param string $class The DataTransferObject class to cast to
@@ -19,7 +19,7 @@ class Caster implements CastsAttributes
     public function __construct(string $class)
     {
         $this->class = $class;
-        $this->serializer = resolve(Serializer::class);
+        $this->serializer = resolve(SymfonySerializer::class);
     }
 
     /**
