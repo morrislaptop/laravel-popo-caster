@@ -8,7 +8,7 @@ Laravel is awesome. Spatie's [data transfer object](https://github.com/spatie/da
 
 Have you ever wanted to cast your JSON columns to a value object?
 
-This package gives you a 2 caster classes:
+This package gives you 2 caster classes:
 
 * `Serializer` which serializes your value object and stores it in a single JSON field
 * `Normalizer` which normalizes your value object and stores the properties as fields on your model
