@@ -3,7 +3,15 @@
 namespace Morrislaptop\LaravelPopoCaster\Tests;
 
 use Morrislaptop\LaravelPopoCaster\CasterServiceProvider;
+use Morrislaptop\SymfonyCustomNormalizers\Brick\MoneyNormalizer;
+use Morrislaptop\SymfonyCustomNormalizers\CarbonNormalizer;
+use Morrislaptop\SymfonyCustomNormalizers\ModelIdentifierNormalizer;
+use Morrislaptop\SymfonyCustomNormalizers\ObjectWithDocblocksNormalizer;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class TestCase extends Orchestra
 {
@@ -30,9 +38,16 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_laravel_castable_object_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        // Add some extra normalizers for our tests..
+        $app->bind(Serializer::class, function () {
+            return new Serializer([
+                new MoneyNormalizer, // for NormalizerThirdPartyTest
+                new CarbonNormalizer,
+                new ModelIdentifierNormalizer,
+                new DateTimeNormalizer,
+                new ArrayDenormalizer,
+                new ObjectWithDocblocksNormalizer,
+            ], [new JsonEncoder()]);
+        });
     }
 }

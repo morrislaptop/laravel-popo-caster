@@ -2,20 +2,21 @@
 
 namespace Morrislaptop\LaravelPopoCaster\Tests;
 
+use Brick\Math\Exception\NumberFormatException;
+use Brick\Money\Money;
+use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Morrislaptop\LaravelPopoCaster\Normalizer;
-use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
-use TypeError;
 
-class NormalizerTest extends TestCase
+class NormalizerThirdPartyTest extends TestCase
 {
     /** @test */
     public function it_denormalizes_props()
     {
-        $user = UserWithMoney::factory()->create([
+        $user = UserWithBrickMoney::factory()->create([
             'amount' => 1000,
             'currency' => 'AUD',
         ]);
@@ -23,15 +24,15 @@ class NormalizerTest extends TestCase
         $user = $user->fresh();
 
         $this->assertInstanceOf(Money::class, $user->money);
-        $this->assertEquals(1000, $user->money->amount);
-        $this->assertEquals('AUD', $user->money->currency);
+        $this->assertEquals(1000, $user->money->getMinorAmount()->toInt());
+        $this->assertEquals('AUD', $user->money->getCurrency()->getCurrencyCode());
     }
 
     /** @test */
     public function it_normalizes_an_object()
     {
-        UserWithMoney::factory()->create([
-            'money' => new Money(1000, 'AUD'),
+        UserWithBrickMoney::factory()->create([
+            'money' => Money::ofMinor(1000, 'AUD'),
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -43,9 +44,9 @@ class NormalizerTest extends TestCase
     /** @test */
     public function it_throws_exceptions_for_incorrect_data_structures()
     {
-        $this->expectException(MissingConstructorArgumentsException::class);
+        $this->expectException(ErrorException::class);
 
-        $user = UserWithMoney::factory()->create([
+        $user = UserWithBrickMoney::factory()->create([
             'amount' => 1000,
         ]);
 
@@ -55,9 +56,9 @@ class NormalizerTest extends TestCase
     /** @test */
     public function it_rejects_invalid_types()
     {
-        $this->expectException(TypeError::class);
+        $this->expectException(NumberFormatException::class);
 
-        $user = UserWithMoney::factory()->create([
+        $user = UserWithBrickMoney::factory()->create([
             'amount' => 'string',
             'currency' => 'AUD',
         ]);
@@ -68,7 +69,7 @@ class NormalizerTest extends TestCase
     /** @test */
     public function it_handles_nullable_columns()
     {
-        $user = UserWithMoney::factory()->create([
+        $user = UserWithBrickMoney::factory()->create([
             'amount' => null,
             'currency' => null,
         ]);
@@ -79,22 +80,10 @@ class NormalizerTest extends TestCase
     }
 }
 
-class Money
-{
-    public int $amount;
-    public string $currency;
-
-    public function __construct(int $amount, string $currency)
-    {
-        $this->amount = $amount;
-        $this->currency = $currency;
-    }
-}
-
 /**
- * @var Money $money
+ * @var Address $address
  */
-class UserWithMoney extends Model
+class UserWithBrickMoney extends Model
 {
     use HasFactory;
 
@@ -106,18 +95,18 @@ class UserWithMoney extends Model
 
     protected static function newFactory()
     {
-        return UserWithMoneyFactory::new();
+        return UserWithBrickMoneyFactory::new();
     }
 }
 
-class UserWithMoneyFactory extends Factory
+class UserWithBrickMoneyFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = UserWithMoney::class;
+    protected $model = UserWithBrickMoney::class;
 
     /**
      * Define the model's default state.
