@@ -44,18 +44,28 @@ class Serializer implements CastsAttributes, SerializesCastableAttributes
             return;
         }
 
-        if (is_array($value)) {
-            $value = $this->serializer->denormalize($value, $this->class);
-        }
+        $isCollection = Str::endsWith($this->class, '[]');
 
-        $instance = is_array($value) ? reset($value) : $value;
-        $class = Str::replaceLast('[]', '', $this->class);
-
-        if (! $instance instanceof $class) {
-            throw new InvalidArgumentException("Value must be of type [$this->class], array, or null");
-        }
+        $value = $isCollection
+            ? array_map(fn ($value) => $this->resolveInstance($value), $value)
+            : $this->resolveInstance($value);
 
         return $this->serializer->serialize($value, 'json');
+    }
+
+    protected function resolveInstance($value)
+    {
+        $class = Str::replaceLast('[]', '', $this->class);
+
+        if (is_array($value)) {
+            $value = $this->serializer->denormalize($value, $class);
+        }
+
+        if (! $value instanceof $class) {
+            throw new InvalidArgumentException("Value must be of type [$class], array, or null");
+        }
+
+        return $value;
     }
 
     public function serialize($model, string $key, $value, array $attributes)

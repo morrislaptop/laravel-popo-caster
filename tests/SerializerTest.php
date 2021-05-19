@@ -42,7 +42,7 @@ class SerializerTest extends TestCase
     }
 
     /** @test */
-    public function it_casts_data_transfer_objects_to_json()
+    public function it_casts_objects_to_json()
     {
         UserWithAddress::factory()->create([
             'address' => new Address(
@@ -51,6 +51,20 @@ class SerializerTest extends TestCase
                 'California',
                 Carbon::parse('2010-01-12T11:00:00+09:00'),
             ),
+            'addresses' => [
+                new Address(
+                    '1640 Riverside Drive',
+                    'Hill Valley',
+                    'California',
+                    Carbon::parse('2010-01-12T11:00:00+09:00'),
+                ),
+                new Address(
+                    '1640 Riverside Drive',
+                    'Hill Valley',
+                    'California',
+                    Carbon::parse('2010-01-12T11:00:00+09:00'),
+                ),
+            ],
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -62,7 +76,7 @@ class SerializerTest extends TestCase
     }
 
     /** @test */
-    public function it_json_to_a_data_transfer_object()
+    public function it_casts_json_to_an_object()
     {
         $user = UserWithAddress::factory()->create([
             'address' => [
