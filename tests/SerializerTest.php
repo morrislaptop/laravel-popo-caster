@@ -105,6 +105,35 @@ class SerializerTest extends TestCase
         $this->assertEquals('1641 Riverside Drive', $user->addresses[0]->street);
     }
 
+    protected function usesGetRoute($app) {
+        $app->router->get('/users/{user}', function ($user) {
+            $user = UserWithAddress::find($user);
+            return $user;
+        });
+    }
+
+    /**
+     * @test
+     * @define-route usesGetRoute
+     */
+    public function it_returns_json_for_the_object_when_returning_the_model()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = UserWithAddress::factory()->create([
+            'address' => [
+                'street' => '1640 Riverside Drive',
+                'suburb' => 'Hill Valley',
+                'state' => 'California',
+                'moved' => '2010-01-12T11:00:00+09:00',
+            ]
+        ]);
+
+        $response = $this->get("/users/{$user->id}");
+
+        $response->assertJsonPath('address.street', '1640 Riverside Drive');
+    }
+
     /** @test */
     public function it_throws_exceptions_for_incorrect_data_structures()
     {

@@ -3,12 +3,11 @@
 namespace Morrislaptop\LaravelPopoCaster;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 
-class Serializer implements CastsAttributes, SerializesCastableAttributes
+class Serializer implements CastsAttributes
 {
     protected string $class;
 
@@ -66,10 +65,5 @@ class Serializer implements CastsAttributes, SerializesCastableAttributes
         }
 
         return $value;
-    }
-
-    public function serialize($model, string $key, $value, array $attributes)
-    {
-        return $this->set($model, $key, $value, $attributes);
     }
 }
