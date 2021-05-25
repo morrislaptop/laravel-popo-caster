@@ -105,9 +105,11 @@ class SerializerTest extends TestCase
         $this->assertEquals('1641 Riverside Drive', $user->addresses[0]->street);
     }
 
-    protected function usesGetRoute($app) {
+    protected function usesGetRoute($app)
+    {
         $app->router->get('/users/{user}', function ($user) {
             $user = UserWithAddress::find($user);
+
             return $user;
         });
     }
@@ -126,7 +128,7 @@ class SerializerTest extends TestCase
                 'suburb' => 'Hill Valley',
                 'state' => 'California',
                 'moved' => '2010-01-12T11:00:00+09:00',
-            ]
+            ],
         ]);
 
         $response = $this->get("/users/{$user->id}");
