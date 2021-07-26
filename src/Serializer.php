@@ -25,10 +25,10 @@ class Serializer implements CastsAttributes
     /**
      * Cast the stored value to the configured DataTransferObject.
      */
-    public function get($model, $key, $value, $attributes)
+    public function get($model, $key, $value, $attributes) : mixed
     {
         if (is_null($value)) {
-            return;
+            return null;
         }
 
         return $this->serializer->deserialize($value, $this->class, 'json');
@@ -37,10 +37,10 @@ class Serializer implements CastsAttributes
     /**
      * Prepare the given value for storage.
      */
-    public function set($model, $key, $value, $attributes)
+    public function set($model, $key, $value, $attributes) : ?string
     {
         if (is_null($value)) {
-            return;
+            return null;
         }
 
         $isCollection = Str::endsWith($this->class, '[]');
