@@ -23,7 +23,7 @@ class Normalizer implements CastsAttributes
     public function __construct(string $class)
     {
         $this->class = $class;
-        $this->serializer = resolve(SymfonySerializer::class);
+        $this->serializer = app(SymfonySerializer::class);
     }
 
     /**
