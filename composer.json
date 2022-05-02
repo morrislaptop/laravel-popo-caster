@@ -17,7 +17,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/contracts": "^8.0|^9.0",
-        "morrislaptop/symfony-custom-normalizers": "^0.4.0",
+        "morrislaptop/symfony-custom-normalizers": "^0.4|^0.5",
         "symfony/property-access": "^5.2|^6.0",
         "symfony/property-info": "^5.2|^6.0",
         "symfony/serializer": "^5.2|^6.0"
