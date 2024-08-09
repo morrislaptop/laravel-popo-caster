@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->jsonb('address')->nullable();
             $table->jsonb('addresses')->nullable();
-            $table->timestampsTz();
+            $table->timestamps();
         });
     }
 
