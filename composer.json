@@ -18,9 +18,9 @@
         "php": "^8.0",
         "illuminate/contracts": "^8.67|^9.0|^10.0|^11.0",
         "morrislaptop/symfony-custom-normalizers": "^0.4|^0.5",
-        "symfony/property-access": "^5.2|^6.0",
-        "symfony/property-info": "^5.2|^6.0",
-        "symfony/serializer": "^5.2|^6.0"
+        "symfony/property-access": "^5.2|^6.0|^7.0",
+        "symfony/property-info": "^5.2|^6.0|^7.0",
+        "symfony/serializer": "^5.2|^6.0|^7.0"
     },
     "require-dev": {
         "brick/money": "^0.5.1|^0.8",
