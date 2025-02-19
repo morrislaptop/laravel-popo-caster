@@ -8,7 +8,6 @@ use Morrislaptop\SymfonyCustomNormalizers\CarbonNormalizer;
 use Morrislaptop\SymfonyCustomNormalizers\ModelIdentifierNormalizer;
 use Morrislaptop\SymfonyCustomNormalizers\ObjectWithDocblocksNormalizer;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\LaravelRay\RayServiceProvider;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
@@ -27,7 +26,6 @@ class TestCase extends Orchestra
     {
         return [
             CasterServiceProvider::class,
-            RayServiceProvider::class,
         ];
     }
 
