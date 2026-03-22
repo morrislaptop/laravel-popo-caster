@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Morrislaptop\LaravelPopoCaster\Normalizer;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 use TypeError;
 
 class NormalizerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_denormalizes_props()
     {
         $user = UserWithMoney::factory()->create([
@@ -27,7 +28,7 @@ class NormalizerTest extends TestCase
         $this->assertEquals('AUD', $user->money->currency);
     }
 
-    /** @test */
+    #[Test]
     public function it_normalizes_an_object()
     {
         UserWithMoney::factory()->create([
@@ -40,7 +41,7 @@ class NormalizerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exceptions_for_incorrect_data_structures()
     {
         $this->expectException(MissingConstructorArgumentsException::class);
@@ -52,7 +53,7 @@ class NormalizerTest extends TestCase
         $user->money; // access prop to call Normalizer
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_invalid_types()
     {
         $this->expectException(TypeError::class);
@@ -65,7 +66,7 @@ class NormalizerTest extends TestCase
         $user->money; // access prop to call Normalizer
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_nullable_columns()
     {
         $user = UserWithMoney::factory()->create([

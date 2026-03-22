@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Morrislaptop\LaravelPopoCaster\Serializer;
+use Orchestra\Testbench\Attributes\DefineRoute;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 
 class SerializerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_casts_arrays_to_json()
     {
         UserWithAddress::factory()->create([
@@ -41,7 +43,7 @@ class SerializerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_casts_objects_to_json()
     {
         UserWithAddress::factory()->create([
@@ -75,7 +77,7 @@ class SerializerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_casts_json_to_an_object()
     {
         $user = UserWithAddress::factory()->create([
@@ -114,10 +116,8 @@ class SerializerTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     * @define-route usesGetRoute
-     */
+    #[Test]
+    #[DefineRoute('usesGetRoute')]
     public function it_returns_json_for_the_object_when_returning_the_model()
     {
         $this->withoutExceptionHandling();
@@ -136,7 +136,7 @@ class SerializerTest extends TestCase
         $response->assertJsonPath('address.street', '1640 Riverside Drive');
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exceptions_for_incorrect_data_structures()
     {
         $this->expectException(MissingConstructorArgumentsException::class);
@@ -148,7 +148,7 @@ class SerializerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_invalid_types()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -158,7 +158,7 @@ class SerializerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_nullable_columns()
     {
         $user = UserWithAddress::factory()->create(['address' => null]);
