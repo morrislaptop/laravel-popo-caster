@@ -13,7 +13,7 @@ This package gives you 2 caster classes:
 * `Serializer` which serializes your value object and stores it in a single JSON field
 * `Normalizer` which normalizes your value object and stores the properties as fields on your model
 
-Under the hood it implements Laravel's [`Castable` interface](https://laravel.com/docs/8.x/eloquent-mutators#castables) with a Laravel [custom cast](https://laravel.com/docs/8.x/eloquent-mutators#custom-casts) that handles serializing between the `object` (or a compatible array) and your JSON database column. It uses [Symfony's Serializer](https://symfony.com/doc/current/components/serializer.html) to do this.
+Under the hood it implements Laravel's [`Castable` interface](https://laravel.com/docs/12.x/eloquent-mutators#castables) with a Laravel [custom cast](https://laravel.com/docs/12.x/eloquent-mutators#custom-casts) that handles serializing between the `object` (or a compatible array) and your JSON database column. It uses [Symfony's Serializer](https://symfony.com/doc/current/components/serializer.html) to do this.
 
 This package is inspired by [Laravel Castable Data Transfer Object](https://github.com/jessarcher/laravel-castable-data-transfer-object)!
 

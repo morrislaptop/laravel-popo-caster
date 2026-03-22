@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Morrislaptop\LaravelPopoCaster\Normalizer;
+use PHPUnit\Framework\Attributes\Test;
 
 class NormalizerThirdPartyTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_denormalizes_props()
     {
         $user = UserWithBrickMoney::factory()->create([
@@ -28,7 +29,7 @@ class NormalizerThirdPartyTest extends TestCase
         $this->assertEquals('AUD', $user->money->getCurrency()->getCurrencyCode());
     }
 
-    /** @test */
+    #[Test]
     public function it_normalizes_an_object()
     {
         UserWithBrickMoney::factory()->create([
@@ -41,7 +42,7 @@ class NormalizerThirdPartyTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_exceptions_for_incorrect_data_structures()
     {
         $this->expectException(ErrorException::class);
@@ -53,7 +54,7 @@ class NormalizerThirdPartyTest extends TestCase
         $user->money; // access prop to call Normalizer
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_invalid_types()
     {
         $this->expectException(NumberFormatException::class);
@@ -66,7 +67,7 @@ class NormalizerThirdPartyTest extends TestCase
         $user->money; // access prop to call Normalizer
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_nullable_columns()
     {
         $user = UserWithBrickMoney::factory()->create([
