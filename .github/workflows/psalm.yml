@@ -5,6 +5,7 @@ on:
     paths:
       - '**.php'
       - 'psalm.xml.dist'
+      - .github/workflows/psalm.yml
 
 jobs:
   psalm:
